@@ -1,0 +1,64 @@
+\section{PTL练习题}
+
+\noindent常用基本符号优先级：\\
+$1.~~{^\lnot}$\\
+$2.~\bigcirc,\Diamond,\square,+,*$\\
+$3.~~\wedge,\vee$\\
+$4.~\rightarrow,\leftrightarrow$\\
+$5.~~;$
+
+\textbf{2018/7/22}
+
+\noindent题~1~:~存在原子命题A,B，将下列命题用PTL公式表示:\\
+\textcircled{\footnotesize{1}}~~A发生，那么之后B总会发生（包括当前状态）。\\
+\textcircled{\footnotesize{2}}~~A发生，那么之前B总会发生（包括当前状态）。\\
+答:\\
+\textcircled{\footnotesize{1}}~~$\square(A\rightarrow\Diamond B)$ \\
+{\color{red}{\textcircled{\footnotesize{2}}~~$^\lnot(\square^\lnot B;A)$}\\
+理解：chop 分为两个区间，两个区间上分别真假共四种情况，而此时否定一种，剩三种，与\textcircled{\footnotesize{1}}的蕴含效果一样，具体情况为$ ^\lnot(P;Q) $被这样的区间满足：对于该区间的任意一种两段划分，要么第一段不满足P，要么第二段不满足Q （可以 第一段不满足P 同时 第二段不满足Q）。}
+
+\textbf{2018/7/23}
+
+\noindent题~2~:~存在原子命题A,B，假设有个词语"严格之后"表示之后的状态，但不包括当前状态。
+"严格之前"同理，将下列命题用PTL公式表示:\\
+\textcircled{\footnotesize{1}}~~A发生，那么严格之后B总会发生（不包括当前状态）。\\
+\textcircled{\footnotesize{2}}~~A发生，那么严格之前B总会发生（不包括当前状态）。\\
+答:\\
+\textcircled{\footnotesize{1}}~~$\square(A\rightarrow\bigcirc\Diamond B)$ \\
+\textcircled{\footnotesize{2}}~~$^\lnot((\square(more\wedge{^\lnot B}));A)$~{\color{red}{$\times$}~~~~$~\square~$和~more连用表示无穷区间~}\\
+\textcircled{\footnotesize{2}}~~$^\lnot((\square(\circleddash{^\lnot B}));A)$~{\color{red}{$\times$}~~~~$\circleddash$不能和always直接连用，因为第一个状态没有上一状态。}\\
+\textcircled{\footnotesize{2}}~~$({^\lnot}A)\wedge((\Diamond B;\bigcirc A)\vee(\square{^\lnot A}))$~{\color{red}{?}}\\
+\textcircled{\footnotesize{2}}~~$({^\lnot}A)\wedge{^\lnot(\square{^\lnot B;skip;A})}$~${\color{red}{\surd}}$~~~~{\color{red}{题目的隐含意思有A不可能发生在起始状态}}\\
+\textcircled{\footnotesize{2}}~~$({^\lnot}A)\wedge{^\lnot(\square{^\lnot B;\bigcirc A})}$~${\color{red}{\surd}}$~~~~{\color{red}{题目的隐含意思有A不可能发生在起始状态}}\\
+
+\newpage
+\textbf{2018/7/25 ~Kun~整理笔记}
+\begin{center}
+\textbf{时序逻辑性质表达 }~~~~~-2018/5/21
+\end{center}
+是朋友才能发消息，如何表示？\\
+是朋友：~f~；发消息：~s~。\\
+
+\noindent\textcircled{\footnotesize{1}}~~经典逻辑表达：\\
+a).~~~~$s\rightarrow f$~~~~~发消息必是朋友。\\
+b).~${^\lnot} f\rightarrow {^\lnot}s$~~~不是朋友不能发消息\\
+c).~${^\lnot} ( {^\lnot} f\wedge s )$~~~不是朋友且发消息是不对的~~（与b)等价）\\
+d).~~~~$f\vee {^\lnot s}$~~~~~要么是朋友要么不发消息~~（与b),c)等价）\\
+
+
+
+\noindent\textcircled{\footnotesize{2}}~~时序逻辑表示：\\
+a).将来能发消息，现在一定是朋友。
+$$\Diamond(\Diamond s \rightarrow f) ~weak~~~~~~~~~~\square(s\rightarrow f)$$
+b).现在不是朋友，将来不能发消息。
+$$\square({^\lnot} f \rightarrow{^\lnot} s)$$
+c).现在不是朋友，将来能发消息是不对的。
+$${^\lnot}\Diamond(\square{^\lnot}f;s)~~~~~~~~~~\square{^\lnot({^\lnot} f\wedge s)}$$
+d).任何时刻，要么是朋友，要么不发消息。
+$$\square(f\vee{^\lnot}s)$$
+e).在是朋友之前不能发消息。
+$$\Diamond(s\rightarrow\boxdot f)$$
+
+
+\noindent Runtime~verification~for~LTL~and~TLTL ~:\\
+$${^\lnot}s~until~f\equiv \square {^\lnot}s;skip;f$$

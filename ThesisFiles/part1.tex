@@ -1,0 +1,54 @@
+\section{命题时序逻辑}
+\subsection{语法}
+\noindent\textcircled{\footnotesize{1}}~notation: \\
+   \indent Z：整数；\\
+   \indent N：正整数；\\
+   \indent $N_0$：非负整数；\\
+   \indent Prop：可数原子命题；\\
+   \indent operate：${^\lnot},\square,\bigcirc,\Diamond,;,\vee,\wedge,+,*$
+
+\noindent\textcircled{\footnotesize{2}}~归纳定义命题公式:
+\begin{equation}\nonumber
+\begin{split}
+&1.~~p\in Prop,p ~is ~a ~formula.\\
+&2.~~p,q \in Prop,so ~are ~the ~constructs.\\
+&~~~~~~~~~~p,q,p\wedge q,p;q,\bigcirc p,\square q,p^+,q^*.and~so~on.
+\end{split}
+\end{equation}
+
+\subsection{语义}
+\noindent\textcircled{\footnotesize{1}}~状态~S~,~B=\{true,false\}\\
+\indent ~S~:~Prop~$\rightarrow$~B~~~~~~~~~~\{原子命题~$\rightarrow$~B\}\\
+\indent ~状态是原子命题到真假集合的映射。
+
+\noindent\textcircled{\footnotesize{2}}~区间\\
+\indent 区间~$\sigma$~:~非空状态序列。\\
+\indent 区间长度~:~~~有限区间~~~~~~finite~~~~$|\sigma|$~~，~~$|\sigma|=status-1$ \\
+\indent~~~~~~~~~~~~~~~~~~~~~无限区间~~~~infinite~~~~w\\
+\indent~~~~~~~~~~~~~~~~~~~~~统一{\color{red}{$\bigstar$}},~$N_w=N_0\vee\{w\}$
+
+operator~~$=,<,\leq,\preceq$\\
+\indent~~~~对于~~~~$N_w~~,~w=w$\\
+\indent~~~~对于~$i\in N_0,~i<w$\\
+\indent~~~~$\preceq~~as~~\leq~-\{{w,w}\}$\\
+\indent定义：\\
+\indent~~~~1.~$\sigma~as~<s_0,...,s_{|\sigma|}>$~,~若~$\sigma~is~infinite.~~s_{|\sigma|}$~无定义。\\
+\indent~~~~2.~$\sigma_{(i,...j)}~as~(0\leq i\preceq ~\leq |\sigma|)~<s_i,...s_j>$\\
+\indent~~~~3.~$\sigma^{(k)}~as~(0\leq k \preceq |\sigma|)~<s_k,...,s_{|\sigma|}>$\\
+
+
+%\subsection{可满足性与有效性}
+%\subsection{时序操作符}
+%\subsection{操作符的优先规则}
+%\subsection{等价关系}
+%\subsection{逻辑法则}
+
+
+
+
+%\newpage
+%\section{一阶时序逻辑}
+%\subsection{语法}
+%\subsection{语义}
+%\subsection{可满足性与有效性}
+%\subsection{逻辑法则}
