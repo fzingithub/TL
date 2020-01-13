@@ -759,7 +759,7 @@ typedef struct{
   \item BP神经网络~结构体
 \begin{lstlisting} [language=c]
 typedef struct{
-	int SampleNum;             // number of samples [int]
+	int CurrentSampleNum;             // number of current samples [int]
 	int SampleDimensionNum;    // dimensions(features) of sample [int]
 	int HiddenLayerNum;        // number of hidden layer [int]
 	int WeightInitWayNum;      // weight initialization mode [int]
@@ -845,9 +845,40 @@ typedef struct{
 
 \paragraph{神经网络初始化}
 \begin{enumerate}
-  \item 开辟神经网络运算所需空间
+  \item 开辟神经网络所需空间并导入每层相关参数
+  \begin{enumerate}[(1)]
+    \item 创建神经网络层空间
+    \begin{enumerate}[<1>]
+      \item FCLayer
+    \end{enumerate}
+    \item 创建神经网络运算空间
+    \begin{enumerate}[<1>]
+      \item ActiMat
+      \item ActiMatPlus
+      \item SumMat
+      \item ActiFunDerivationMat
+      \item DeltaMat
+    \end{enumerate}
+    \item 创建神经网络参数空间\textcolor{red}{(参数空间的大小不随输入神经网络样本大小而改变)}
+    \begin{enumerate}[<1>]
+      \item WeightMat
+      \item WeightBiasMat
+      \item NablaWbMat
+    \end{enumerate}
+    \item 导入每层参数
+    \begin{enumerate}[<1>]
+      \item NeuronNum
+      \item AcitFuncNum
+    \end{enumerate}
+  \end{enumerate}
   \item 进行权值初始化
+  \begin{enumerate}
+    \item WeightMat
+    \item WeightBiasMat
+  \end{enumerate}
 \end{enumerate}
 
 
+
+%\paragraph{神经网络前向传播}
 
