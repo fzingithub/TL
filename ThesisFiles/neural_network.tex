@@ -845,11 +845,16 @@ typedef struct{
 
 \paragraph{神经网络初始化}
 \begin{enumerate}
-  \item 开辟神经网络所需空间并导入每层相关参数
+  \item 开辟神经网络所需空间并导入每层相关参数\textcolor{red}{注意创建顺序不可变化。}
   \begin{enumerate}[(1)]
     \item 创建神经网络层空间
     \begin{enumerate}[<1>]
       \item FCLayer
+    \end{enumerate}
+        \item 导入每层参数
+    \begin{enumerate}[<1>]
+      \item NeuronNum
+      \item AcitFuncNum
     \end{enumerate}
     \item 创建神经网络运算空间
     \begin{enumerate}[<1>]
@@ -865,11 +870,6 @@ typedef struct{
       \item WeightBiasMat
       \item NablaWbMat
     \end{enumerate}
-    \item 导入每层参数
-    \begin{enumerate}[<1>]
-      \item NeuronNum
-      \item AcitFuncNum
-    \end{enumerate}
   \end{enumerate}
   \item 进行权值初始化
   \begin{enumerate}
@@ -880,5 +880,13 @@ typedef struct{
 
 
 
-%\paragraph{神经网络前向传播}
+\paragraph{神经网络前向传播} ~神经网络向前传播将小批量输入样本导入神经网络输入层激活值矩阵，并将对应的标签数据进行独热编码，然后进行矩阵运算损失处理得到标量损失值。\textcolor{red}{其中要注意小批量输入样本的数量不一定和已经开辟的神经网络有关矩阵空间的数量相一致，要做检查处理。}
+
+\begin{enumerate}
+  \item 小批量余数处理
+  \item 输入特征数据拷贝到激活值矩阵
+  \item 输入标签数据独热编码
+  \item 前向传播矩阵相乘，激活，扩展激活值矩阵
+  \item 预测值矩阵与真实值矩阵求损失，返回
+\end{enumerate}
 
