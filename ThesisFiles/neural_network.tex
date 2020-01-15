@@ -802,13 +802,24 @@ typedef struct{
 	Mat CompleteTrainLabel;		// complete label Mat without onehot
 	Mat *BatchTrainFeature;		// batch featrue Mat for FCNN training [three dimensions]
 	Mat *BatchTrainLabel;		// batch label Mat without onehot [three dimensions]
+	Mat *BatchTrainLabelOneHot; // batch label Mat with onehot [three dimensions]
 	Mat TestFeature;			// featrue Mat for FCNN test
 	Mat TestLabel;				// label Mat without onehot
-	Mat ValidationFeature;		// featrue Mat for FCNN Validation
-	Mat ValidationLabel;		// label Mat withoutone
+	Mat TestLabelOneHot;        // label Mat with onehot
+	//Mat ValidationFeature;	// featrue Mat for FCNN Validation
+	//Mat ValidationLabel;		// label Mat withoutone
 	
+
+	int CompleteSampleNum;		// number of all samples [int]
+	int TrainSampleNum;			// number of training samples [int]
+	int TestSampleNum;			// number of test samples [int]
+	//int ValidationNum;			// number of validation samples [int]
+	int SampleDimensionNum;    // dimensions(features) of sample [int]
+	int ClassificationNum;     // Number of categories classified [int]
 	int BatchSize;				// batch size for dataset
-}Dateset;
+	int BatchNum;				// number of batch
+	int remainder;				// the last batch size
+}DataSet;
 \end{lstlisting}
 \end{enumerate}
 
@@ -817,6 +828,7 @@ typedef struct{
 
 \textcolor{red}{\fbox{batch} 机制的实现:建立 \fbox{batch} 结构体，分割数据集，复制到  \fbox{FCNN}  中。}
 
+其中 $\text{TrainSampleNum} = \text{BatchSize}*\text{BatchNum}+\text{remainder}$，当$\text{remainder}=0$时，代表能被整除。
 \newpage
 \subsubsection{开发流程}
 \begin{enumerate}
@@ -836,6 +848,7 @@ typedef struct{
 
 \paragraph{数据集构建} ~根据用户输入的数据相关参数将训练测试数据集构建完成。构建路线：
 \begin{enumerate}
+  \item 根据训练集数据量以及 $\text{Batch\_Size}$ 大小计算并导入相关参数。
   \item 根据整体数据集的各个参数，开辟所需的全部空间。
   \item 将整体数据集数组根据训练测试集数目划分成两个数组，包括训练特征数组和训练标签数组，测试特征数组和测试标签数组。
   \item 再将训练特征数组和训练标签数组划分成若干个块大小的块训练特征数组和块训练标签数组。
@@ -863,6 +876,7 @@ typedef struct{
       \item SumMat
       \item ActiFunDerivationMat
       \item DeltaMat
+      \item OnehotMat（FCNN）
     \end{enumerate}
     \item 创建神经网络参数空间\textcolor{red}{(参数空间的大小不随输入神经网络样本大小而改变)}
     \begin{enumerate}[<1>]
@@ -880,13 +894,19 @@ typedef struct{
 
 
 
-\paragraph{神经网络前向传播} ~神经网络向前传播将小批量输入样本导入神经网络输入层激活值矩阵，并将对应的标签数据进行独热编码，然后进行矩阵运算损失处理得到标量损失值。\textcolor{red}{其中要注意小批量输入样本的数量不一定和已经开辟的神经网络有关矩阵空间的数量相一致，要做检查处理。}
+\paragraph{神经网络前向传播求损失} ~神经网络向前传播将小批量输入样本导入神经网络输入层激活值矩阵，并将对应的标签数据进行独热编码，然后进行矩阵运算损失处理得到标量损失值。\textcolor{red}{其中要注意小批量输入样本的数量不一定和已经开辟的神经网络有关矩阵空间的数量相一致，要做检查处理。}
 
 \begin{enumerate}
   \item 小批量余数处理
   \item 输入特征数据拷贝到激活值矩阵
-  \item 输入标签数据独热编码
+  \item 输入标签独热编码数据拷贝到神经网络独热编码矩阵中
   \item 前向传播矩阵相乘，激活，扩展激活值矩阵
   \item 预测值矩阵与真实值矩阵求损失，返回
 \end{enumerate}
 
+\paragraph{神经网络反向传播求梯度} ~神经网络先经过一次正向传播得到损失之后，再求其损失对所有权值偏置的导数得到梯度，用到了\textcolor{red}{反向传播算法}。注意，每一次反向传播是建立在一次正向传播求得损失的基础之上的。
+
+\begin{enumerate}
+  \item 输出层反向传播，求得输出层的中间变量矩阵以及权值导数
+  \item 隐藏层反向传播，求得各隐藏层的中间变量矩阵以及权值导数
+\end{enumerate}
