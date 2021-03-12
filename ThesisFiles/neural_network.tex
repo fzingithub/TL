@@ -51,73 +51,163 @@
 \textcolor{red}{同维矩阵对应位置相乘运算}：$A\circ B$ .
 \end{definition}
 \textbf{输入层三个神经元，一个隐藏层六个神经元，输出层三个神经元(三分类)为例。激活函数以逻辑函数，损失函数以均方差损失为例。}
+~\\~\\
+
+
+%\begin{overpic}[width=0.82\textwidth]{FC.png}
+%
+%    \put(12,45){\small $x_0^0$}
+%
+%    \put(15.3,44.8){\footnotesize$+1$}
+%
+%    \put(12,38){\small $x_1^0$}
+%
+%    \put(12,31){\small $x_2^0$}
+%
+%    \put(12,24){\small$x_3^0$}
+%
+%    \put(50,58){\small $a_0^1$}
+%
+%    \put(47.8,55.5){\footnotesize $+1$}
+%
+%    \put(47,51){\small $s_1^1|a_1^1$}
+%
+%    \put(47,44){\small $s_2^1|a_2^1$}
+%
+%    \put(47,37){\small$s_3^1|a_3^1$}
+%
+%    \put(47,30){\small $s_4^1|a_4^1$}
+%
+%    \put(47,23){\small $s_5^1|a_2^1$}
+%
+%    \put(47,16){\small $s_6^1|a_2^1$}
+%
+%    \put(84,41){\small$s_1^2|a_1^2$}
+%
+%    \put(84,34){\small $s_2^2|a_2^2$}
+%
+%    \put(84,27){\small $s_3^2|a_3^2$}
+%
+%    \put(30, 47){\small $w_{01}^1$}
+%
+%    \put(33, 44){\small $w_{11}^1$}
+%
+%    \put(37, 43){\small $w_{21}^1$}
+%
+%    \put(41, 43){\small $w_{31}^1$}
+%
+%    \put(64, 49){\small $w_{01}^2$}
+%
+%    \put(64, 45){\small $w_{11}^2$}
+%
+%    \put(64, 41.2){\small $w_{21}^2$}
+%
+%    \put(64, 37.4){\small $w_{31}^2$}
+%
+%    \put(64, 33.6){\small $w_{41}^2$}
+%
+%    \put(64, 29.8){\small $w_{51}^2$}
+%
+%    \put(64, 26){\small $w_{61}^2$}
+%
+%    \put(12, 18){\normalsize\bfseries $\big(\bm{x}^{(0)}\big)^+$}
+%
+%    \put(30, 12){\normalsize\bfseries {$ \bm{W_b}^{(1)}$}}
+%
+%    \put(42, 8){\normalsize\bfseries {$\bm{s}^{(1)}|\big(\bm{a}^{(1)}\big)^+$}}
+%
+%    \put(64, 13){\normalsize\bfseries {$\bm{W_b}^{(2)}$}}
+%
+%    \put(80, 18){\normalsize\bfseries $\bm{s}^{(2)}|\bm{a}^{(2)}$}
+%
+%    \put(8, 53){\normalsize Input Layer}
+%    \put(40, 64){\normalsize Hidden Layer}
+%    \put(76, 53){\normalsize Output Layer}
+%
+%\end{overpic}
+
+
 
 \begin{overpic}[width=0.82\textwidth]{FC.png}
 
-    \put(12,45){\small $x_0^0$}
+    \put(12,45){\scriptsize $x_0$}
 
-    \put(15.3,44.8){\footnotesize$+1$}
+    \put(15.7,44.8){\scriptsize$+1$}
 
-    \put(12,38){\small $x_1^0$}
+    \put(12,38){\scriptsize $x_1$}
 
-    \put(12,31){\small $x_2^0$}
+    \put(12,31){\scriptsize $x_2$}
 
-    \put(12,24){\small$x_3^0$}
+    \put(12,24){\scriptsize$x_3$}
 
-    \put(50,58){\small $a_0^1$}
+    \put(50.2,58){\scriptsize $a_0^{(1)}$}
 
-    \put(47.8,55.5){\footnotesize $+1$}
+    \put(47.9,55.5){\scriptsize $+1$}
 
-    \put(47,51){\small $s_1^1|a_1^1$}
+    \put(47,51){\scriptsize $s_1^{(1)}|a_1^{(1)}$}
 
-    \put(47,44){\small $s_2^1|a_2^1$}
+    \put(47,44){\scriptsize $s_2^{(1)}|a_2^{(1)}$}
 
-    \put(47,37){\small$s_3^1|a_3^1$}
+    \put(47,37){\scriptsize$s_3^{(1)}|a_3^{(1)}$}
 
-    \put(47,30){\small $s_4^1|a_4^1$}
+    \put(47,30){\scriptsize $s_4^{(1)}|a_4^{(1)}$}
 
-    \put(47,23){\small $s_5^1|a_2^1$}
+    \put(47,23){\scriptsize $s_5^{(1)}|a_5^{(1)}$}
 
-    \put(47,16){\small $s_6^1|a_2^1$}
+    \put(47,16){\scriptsize $s_6^{(1)}|a_6^{(1)}$}
 
-    \put(84,41){\small$s_1^2|a_1^2$}
+    \put(84,41){\scriptsize$s_1^{(2)}|a_1^{(2)}$}
 
-    \put(84,34){\small $s_2^2|a_2^2$}
+    \put(84,34){\scriptsize $s_2^{(2)}|a_2^{(2)}$}
 
-    \put(84,27){\small $s_3^2|a_3^2$}
+    \put(84,27){\scriptsize $s_3^{(2)}|a_3^{(2)}$}
 
-    \put(30, 47){\small $w_{01}^1$}
+    \put(30, 47){\scriptsize $w_{01}^{(1)}$}
 
-    \put(33, 44){\small $w_{11}^1$}
+    \put(33, 44){\scriptsize $w_{11}^{(1)}$}
 
-    \put(37, 43){\small $w_{21}^1$}
+    \put(37, 43){\scriptsize $w_{21}^{(1)}$}
 
-    \put(41, 43){\small $w_{31}^1$}
+    \put(41, 43){\scriptsize $w_{31}^{(1)}$}
 
-    \put(64, 49){\small $w_{01}^2$}
+    \put(64, 49){\scriptsize $w_{01}^{(2)}$}
 
-    \put(64, 45){\small $w_{11}^2$}
+    \put(64, 45){\scriptsize $w_{11}^{(2)}$}
 
-    \put(64, 41.2){\small $w_{21}^2$}
+    \put(64, 41.2){\scriptsize $w_{21}^{(2)}$}
 
-    \put(64, 37.4){\small $w_{31}^2$}
+    \put(64, 37.4){\scriptsize $w_{31}^{(2)}$}
 
-    \put(64, 33.6){\small $w_{41}^2$}
+    \put(64, 33.6){\scriptsize $w_{41}^{(2)}$}
 
-    \put(64, 29.8){\small $w_{51}^2$}
+    \put(64, 29.8){\scriptsize $w_{51}^{(2)}$}
 
-    \put(64, 26){\small $w_{61}^2$}
+    \put(64, 26){\scriptsize $w_{61}^{(2)}$}
 
-    \put(12, 18){\normalsize\bfseries $\big(x^{(0)}\big)^+$}
+    \put(12, 18){\small $\bm{x}^+$}
 
-    \put(30, 12){\normalsize\bfseries {$ W^{(1)}$}}
+    \put(30, 12){\small {$ \bm{W}^{(1)}$}}
 
-    \put(42, 8){\normalsize\bfseries {$s^{(1)}|\big(a^{(1)}\big)^+$}}
+    \put(42, 7){\small {$\bm{s}^{(1)}|\big(\bm{a}^{(1)}\big)^+$}}
 
-    \put(64, 13){\normalsize\bfseries {$W^{(2)}$}}
+    \put(64, 13){\small {$\bm{W}^{(2)}$}}
 
-    \put(80, 18){\normalsize\bfseries $s^{(2)}|a^{(2)}$}
+    \put(80, 18){\small $\bm{s}^{(2)}|\bm{a}^{(2)}$}
+
+    \put(11, 53){\scriptsize\bfseries Input Layer}
+    \put(43, 64){\scriptsize\bfseries Hidden Layer}
+    \put(78, 53){\scriptsize\bfseries Output Layer}
+
 \end{overpic}
+
+
+
+
+
+
+
+
+
 
 \begin{overpic}[width=0.82\textwidth]{programExample3.png}
     %\put(82, 95.5){---}
